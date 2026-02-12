@@ -1,0 +1,24 @@
+name: CI Hola Mundo + Notificacion
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  hola-notificacion:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Ejecutar Hola Mundo
+        run: node hola.js
+
+      - name: Enviar notificacion a ntfy
+        run: |
+          curl -X POST https://ntfy.sh/devops-itla \
+          -H "Title: GitHub Actions CI" \
+          -H "Priority: default" \
+          -d "Se hizo push a la rama main y el pipeline se ejecuto correctamente 🚀"
